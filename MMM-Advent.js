@@ -81,7 +81,10 @@ Module.register("MMM-Advent", {
     renderMinimalGlow(offset, showFlame) {
         const height = this.config.height;
         const candleTopSpace = 60;
-        const candleStart = 62;
+        // Kept clear of the wax rect's minimum top (candleTopSpace - ~4px
+        // before the burn starts) by more than renderTickMarks' label
+        // buffer, so mark 1 isn't hidden while the candle is still full.
+        const candleStart = 70;
         const candleEnd = 12;
         const flameSpace = 35;
         const topInset = candleTopSpace + Math.round(offset * (height - candleTopSpace - candleEnd));
