@@ -1,10 +1,10 @@
 {
   "name": "Magic-Mirror-Module-Advent",
-  "version": "1.0.2",
-  "description": "A module for displaying timed candles.",
+  "version": "2.0.0",
+  "description": "A module for displaying an advent countdown candle, with selectable Minimal Glow and Ornate Holiday themes. Forked and overhauled from Jopyth/MMM-Advent.",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/jopyth/MMM-Advent"
+    "url": "git+https://github.com/AndreasHagman/MMM-Advent"
   },
   "keywords": [
     "magic mirror",
@@ -16,9 +16,9 @@
   "contributors": "git+https://github.com/jopyth/MMM-Advent/graphs/contributors",
   "license": "MIT",
   "bugs": {
-    "url": "git+https://github.com/jopyth/MMM-Advent/issues"
+    "url": "git+https://github.com/AndreasHagman/MMM-Advent/issues"
   },
-  "homepage": "git+https://github.com/jopyth/MMM-Advent#readme",
+  "homepage": "git+https://github.com/AndreasHagman/MMM-Advent#readme",
   "scripts": {
     "test": "node --test test/**/*.test.js",
     "lint": "eslint *.js test/*.js"

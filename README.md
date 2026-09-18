@@ -1,50 +1,41 @@
-# Magic Mirror Module Advent
+# MMM-Advent
 
-This module for the [MagicMirror](https://github.com/MichMich/MagicMirror) shows a candle, which burns turn towards a specified date (e.g. as an advent candle).
+An advent countdown candle for [MagicMirror²](https://magicmirror.builders). Forked and overhauled from [Jopyth/MMM-Advent](https://github.com/Jopyth/MMM-Advent) (MIT licensed) — rewritten with SVG rendering and two selectable themes.
 
-![Three example candles](/.examples/example.png?raw=true)
+## Themes
+
+- **`minimal-glow`** (default) — soft off-white wax, subtle radial flame glow, numbered tick marks. Blends into a dark mirror display.
+- **`ornate-holiday`** — deep red & gold candle with a wreath garland and a gold "days remaining" badge.
 
 ## Installation
 
-  1\. Execute the following commands to install the module:
+Already present in this MagicMirror install at `modules/MMM-Advent`, tracked on the fork at `https://github.com/AndreasHagman/MMM-Advent`.
 
-```bash
-cd ~/MagicMirror/modules # navigate to module folder
-git clone https://github.com/Jopyth/MMM-Advent.git # clone this repository
-```
+## Configuration
 
-  2\. Then, add the following into the `modules` section of your `config/config.js` file:
-
-````javascript
+```js
 {
     module: 'MMM-Advent',
-    position: 'bottom_center', // This can be any of the regions, best results in center regions
+    position: 'bottom_center',
     config: {
-        // See 'Configuration options' for more information.
+        theme: 'minimal-glow' // or 'ornate-holiday'
     }
-},
-````
+}
+```
 
-  3\. *(Optional)* Customize your candle with configuration options or the `custom.css` stylesheet.
+| Option | Default | Description |
+| --- | --- | --- |
+| `theme` | `"minimal-glow"` | `"minimal-glow"` or `"ornate-holiday"` |
+| `start` | `null` | Burn start (`YYYY-MM-DD HH-MM-SS`). `null` auto-computes Dec 1, current year. |
+| `end` | `null` | Burn end (`YYYY-MM-DD HH-MM-SS`). `null` auto-computes Dec 24, current year. |
+| `marks` | `24` | Number of tick marks on the candle |
+| `showMarkNumbers` | `true` | Show a number next to each tick mark |
+| `showDaysBadge` | `true` | Show the gold "days remaining" badge (`ornate-holiday` only) |
+| `height` | `425` | Candle height in pixels |
+| `showFlameBeforeStart` | `false` | Show the flame before the start date |
+| `enableAnimation` | `true` | Enable the flame flicker animation |
+| `updateInterval` | `600000` | Refresh interval in milliseconds (10 min minimum) |
 
-## Candle customization
+## Local preview
 
-The rules in the `custom.css` stylesheet will be applied before any configuration options are applied (e.g. `candleColor`), therefore if you want to set e.g. a candle color, you will need to set the corresponding config option to an empty string `""`.
-
-## Configuration options
-
-The following properties can be configured:
-
-| option | description |
-| ------------- | ------------- |
-| `updateInterval` | time between updates in ms, default is `10 * 60 * 1000` (10 minutes) |
-| `marks` | number of marks on the candle, default is `24` |
-| `height` | height of the (whole) candle in pixel, default is `425` |
-| `showFlameBeforeStart` | whether to show the flame before the start time, default is `false` |
-| `start` | date and time as a string, when the candle should start burning (down), format is `YYYY-MM-DD HH-MM-SS`, default is `"2016-12-01 08:00:00"`, can be an array of timestamps, should match the length of `end`, one candle will be created for each entry |
-| `end` | date and time as a string, when the candle should stop burning (down), format is `YYYY-MM-DD HH-MM-SS`, default is `"2016-12-24 22:00:00"`, can be an array of timestamps, should match the length of `start`, one candle will be created for each entry |
-| `enableAnimation` | set to `false` to disable flame animation, default is `true` |
-| `fontCSS` | link to a custom font stylesheet, default is `https://fonts.googleapis.com/css?family=Dosis` |
-| `fontColor` | the color of the marks on the candle, default is `#000000` (black) |
-| `candleColor` | the color of the candle, default is `#FFFFFF` (white) |
-| `font` | the font used (probably depends on the `fontCSS` option, default is `'Dosis', sans-serif` |
+Open `preview.html` directly in a browser to iterate on both themes across the full burn timeline, without running the MagicMirror server.
