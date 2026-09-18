@@ -1,18 +1,17 @@
-.candle-body {
-  /* example for a different background color */
-  /*background-color: #AB0D30;*/
+/* Put your own style overrides in this file. */
 
-  /* example for a background image */
-  /*background-image: url("http://images.all-free-download.com/images/graphiclarge/variety_christmas_gift_cartoon_vector_elements_and_153536.jpg"); */
-  /*background-position: -104px 66px;*/
+/* example: change the tick-mark label color/font on the minimal-glow theme */
+/*
+.theme-minimal-glow .mark-label {
+    fill: #AB0D30;
+    font-family: 'Arial';
+    font-weight: bolder;
 }
+*/
 
-.mark {
-  /* example for a different mark color */
-  /*color: #170069;*/
-
-  /* example for a different font */
-  /*font-family: 'Arial';*/
-  /*font-weight: bolder;*/
-  /*font-style: italic;*/
+/* example: change the "days remaining" badge number color on the ornate-holiday theme */
+/*
+.theme-ornate-holiday .days-number {
+    fill: #170069;
 }
+*/

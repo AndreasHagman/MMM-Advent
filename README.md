@@ -34,7 +34,7 @@ Already present in this MagicMirror install at `modules/MMM-Advent`, tracked on 
 | `height` | `425` | Candle height in pixels |
 | `showFlameBeforeStart` | `false` | Show the flame before the start date |
 | `enableAnimation` | `true` | Enable the flame flicker animation |
-| `updateInterval` | `600000` | Refresh interval in milliseconds (10 min minimum) |
+| `updateInterval` | `600000` | Refresh interval in milliseconds (10 sec minimum) |
 
 ## Local preview
 

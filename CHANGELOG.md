@@ -4,6 +4,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/) 
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [2.0.0] - 2026-09-18
+### Changed
+- Forked to a personal GitHub fork (`AndreasHagman/MMM-Advent`)
+- Full rewrite of the candle rendering to SVG
+- Added two selectable themes via `config.theme`: `minimal-glow` (default) and `ornate-holiday`
+- `start`/`end` now auto-compute to Dec 1 - Dec 24 of the current year when left unset
+
+### Removed
+- `fontCSS`, `fontColor`, `candleColor`, and `font` config options
+- Array-based `start`/`end` and multi-candle support
+
 ## [1.0.2] - 2016-12-04
 ### Changed
 - Configuration options:

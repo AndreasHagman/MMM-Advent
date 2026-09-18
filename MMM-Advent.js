@@ -104,7 +104,7 @@ Module.register("MMM-Advent", {
                     <stop offset="100%" stop-color="#ffd27a" stop-opacity="0"/>
                 </radialGradient>
             </defs>
-            <rect x="10" y="${topInset}" width="70" height="${height - topInset}" rx="10" fill="url(#mg-wax)"/>
+            <rect x="10" y="${topInset}" width="70" height="${Math.max(0, height - topInset)}" rx="10" fill="url(#mg-wax)"/>
             ${marks}
             ${flame}
         </svg>`;
@@ -144,7 +144,7 @@ Module.register("MMM-Advent", {
                     <stop offset="100%" stop-color="#ff8a00" stop-opacity="0"/>
                 </radialGradient>
             </defs>
-            <rect x="15" y="${topInset}" width="70" height="${height - topInset}" rx="4" fill="#8c1a1a" stroke="#d4af37" stroke-width="2"/>
+            <rect x="15" y="${topInset}" width="70" height="${Math.max(0, height - topInset)}" rx="4" fill="#8c1a1a" stroke="#d4af37" stroke-width="2"/>
             ${marks}
             <path d="M25 ${height - 55} q 25 -10 50 0" stroke="#2e7d32" stroke-width="4" fill="none"/>
             <circle cx="35" cy="${height - 57}" r="3" fill="#d4af37"/>
@@ -161,11 +161,18 @@ Module.register("MMM-Advent", {
         const offset = this.computeOffset(now, start, end);
         const showFlame = this.config.showFlameBeforeStart || offset >= 0.0;
 
+        let theme = "minimal-glow";
+        if (this.config.theme === "ornate-holiday") {
+            theme = "ornate-holiday";
+        } else if (this.config.theme !== "minimal-glow") {
+            Log.warn(this.name + ": invalid config.theme \"" + this.config.theme + "\", falling back to \"minimal-glow\"");
+        }
+
         const wrapper = document.createElement("div");
-        wrapper.className = "theme-" + this.config.theme + (this.config.enableAnimation ? "" : " no-animation");
+        wrapper.className = "theme-" + theme + (this.config.enableAnimation ? "" : " no-animation");
 
         wrapper.innerHTML =
-            this.config.theme === "ornate-holiday"
+            theme === "ornate-holiday"
                 ? this.renderOrnateHoliday(offset, showFlame, end, now)
                 : this.renderMinimalGlow(offset, showFlame);
 
