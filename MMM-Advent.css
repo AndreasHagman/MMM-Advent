@@ -6,16 +6,15 @@
 .theme-minimal-glow:not(.no-animation) .flame-group,
 .theme-ornate-holiday:not(.no-animation) .flame-group {
     transform-origin: center bottom;
-    animation: advent-flicker 3s ease-in-out infinite alternate;
+    animation: advent-flicker 2.6s ease-in-out infinite alternate;
 }
 
 @keyframes advent-flicker {
-    0% { transform: rotate(-1deg); }
-    20% { transform: rotate(1deg); }
-    40% { transform: rotate(-1deg); }
-    60% { transform: rotate(1deg) scale(1, 1.02); }
-    80% { transform: rotate(-2deg) scale(1, 0.96); }
-    100% { transform: rotate(1deg); }
+    0% { transform: rotate(-0.6deg); }
+    25% { transform: rotate(0.4deg); }
+    50% { transform: rotate(-0.3deg); }
+    75% { transform: rotate(0.5deg); }
+    100% { transform: rotate(-0.4deg); }
 }
 
 .theme-minimal-glow .mark-label {
