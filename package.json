@@ -18,5 +18,14 @@
   "bugs": {
     "url": "git+https://github.com/jopyth/MMM-Advent/issues"
   },
-  "homepage": "git+https://github.com/jopyth/MMM-Advent#readme"
+  "homepage": "git+https://github.com/jopyth/MMM-Advent#readme",
+  "scripts": {
+    "test": "node --test test/**/*.test.js",
+    "lint": "eslint *.js test/*.js"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "eslint": "^10.9.1",
+    "globals": "^17.9.0"
+  }
 }
