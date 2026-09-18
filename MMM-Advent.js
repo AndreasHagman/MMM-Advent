@@ -90,8 +90,8 @@ Module.register("MMM-Advent", {
 
         const flame = showFlame
             ? `<g style="transform: translateY(${topInset - flameSpace}px)">
+                   <ellipse cx="45" cy="0" rx="30" ry="30" fill="url(#mg-glow)"/>
                    <g class="flame-group">
-                       <ellipse cx="45" cy="0" rx="30" ry="30" fill="url(#mg-glow)"/>
                        <path d="M45 -22 C 51 -8, 56 0, 45 20 C 34 0, 39 -8, 45 -22 Z" fill="#ffb347"/>
                        <path d="M45 -10 C 48 -2, 51 2, 45 14 C 39 2, 42 -2, 45 -10 Z" fill="#fff3d6"/>
                    </g>
@@ -127,8 +127,8 @@ Module.register("MMM-Advent", {
 
         const flame = showFlame
             ? `<g style="transform: translateY(${topInset - flameSpace}px)">
+                   <ellipse cx="50" cy="0" rx="36" ry="36" fill="url(#oh-glow)"/>
                    <g class="flame-group">
-                       <ellipse cx="50" cy="0" rx="36" ry="36" fill="url(#oh-glow)"/>
                        <path d="M50 -25 C 58 -8, 62 0, 50 22 C 38 0, 42 -8, 50 -25 Z" fill="#ff9d2f"/>
                        <path d="M50 -12 C 53 -2, 55 2, 50 16 C 45 2, 47 -2, 50 -12 Z" fill="#fff7dc"/>
                    </g>
