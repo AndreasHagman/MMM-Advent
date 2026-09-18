@@ -57,12 +57,17 @@ Module.register("MMM-Advent", {
             return "";
         }
         const denom = this.config.marks > 1 ? this.config.marks - 1 : 1;
+        // A mark's number is drawn above its tick line, so its glyph needs a
+        // few extra pixels of wax above the tick itself or it pokes out onto
+        // the black background and disappears (black-on-black).
+        const labelBuffer = this.config.showMarkNumbers ? 10 : 0;
         let markup = "";
         for (let i = 0; i < this.config.marks; i++) {
             const y = candleStart + (i / denom) * (height - (candleStart + candleEnd));
-            if (typeof topInset === "number" && y < topInset) {
-                // This mark's wax has already burned away; skip it so it
-                // doesn't float in mid-air above the candle.
+            if (typeof topInset === "number" && y < topInset + labelBuffer) {
+                // This mark's wax has already burned away (or is too close
+                // to the current wax line to fit its number); skip it so it
+                // doesn't float in mid-air above the candle or clip.
                 continue;
             }
             markup += `<line x1="20" y1="${y}" x2="80" y2="${y}" stroke="${color}" stroke-width="1" opacity="0.35"/>`;
