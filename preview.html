@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>MMM-Advent Preview</title>
+<link rel="stylesheet" href="MMM-Advent.css">
+<link rel="stylesheet" href="custom.css">
+<style>
+    body {
+        background: #000;
+        color: #ccc;
+        font-family: sans-serif;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+        padding: 30px;
+    }
+    .controls {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+    }
+    #stage {
+        min-height: 450px;
+        display: flex;
+        align-items: flex-end;
+        justify-content: center;
+    }
+    button {
+        background: #222;
+        color: #eee;
+        border: 1px solid #444;
+        padding: 6px 12px;
+        cursor: pointer;
+    }
+    button.active {
+        background: #d4af37;
+        color: #111;
+    }
+</style>
+</head>
+<body>
+    <h1>MMM-Advent Preview</h1>
+
+    <div class="controls">
+        <label>Theme:
+            <select id="theme">
+                <option value="minimal-glow">Minimal Glow</option>
+                <option value="ornate-holiday">Ornate Holiday</option>
+            </select>
+        </label>
+        <label><input type="checkbox" id="showMarkNumbers" checked> showMarkNumbers</label>
+        <label><input type="checkbox" id="showDaysBadge" checked> showDaysBadge</label>
+        <label><input type="checkbox" id="enableAnimation" checked> enableAnimation</label>
+    </div>
+
+    <div class="controls" id="timeline"></div>
+
+    <div id="stage"></div>
+
+    <script>
+        // Minimal MagicMirror shims so MMM-Advent.js can run standalone.
+        var Log = { info: function () {}, log: function () {} };
+        var Module = {
+            register: function (name, def) {
+                window.__MMM_ADVENT_DEF__ = def;
+            }
+        };
+    </script>
+    <script src="MMM-Advent.js"></script>
+    <script>
+        const def = window.__MMM_ADVENT_DEF__;
+
+        const timelinePoints = [
+            { label: "Before start", fraction: -0.1 },
+            { label: "0%", fraction: 0 },
+            { label: "25%", fraction: 0.25 },
+            { label: "50%", fraction: 0.5 },
+            { label: "75%", fraction: 0.75 },
+            { label: "99%", fraction: 0.99 },
+            { label: "After end", fraction: 1.2 }
+        ];
+
+        let selectedFraction = 0.5;
+
+        function withFakeNow(fixedDate, fn) {
+            const RealDate = Date;
+            class FakeDate extends RealDate {
+                constructor(...args) {
+                    if (args.length === 0) {
+                        super(fixedDate.getTime());
+                    } else {
+                        super(...args);
+                    }
+                }
+                static now() {
+                    return fixedDate.getTime();
+                }
+            }
+            window.Date = FakeDate;
+            try {
+                return fn();
+            } finally {
+                window.Date = RealDate;
+            }
+        }
+
+        function render() {
+            const theme = document.getElementById('theme').value;
+            const config = Object.assign({}, def.defaults, {
+                theme: theme,
+                showMarkNumbers: document.getElementById('showMarkNumbers').checked,
+                showDaysBadge: document.getElementById('showDaysBadge').checked,
+                enableAnimation: document.getElementById('enableAnimation').checked
+            });
+
+            const instance = Object.assign({}, def, { config: config });
+            const { start, end } = instance.resolveDates(new Date(2026, 11, 12));
+            const totalMs = end.getTime() - start.getTime();
+            const simulatedNow = new Date(start.getTime() + selectedFraction * totalMs);
+
+            const stage = document.getElementById('stage');
+            stage.innerHTML = '';
+            const dom = withFakeNow(simulatedNow, () => instance.getDom());
+            stage.appendChild(dom);
+        }
+
+        const timeline = document.getElementById('timeline');
+        timelinePoints.forEach((point, index) => {
+            const btn = document.createElement('button');
+            btn.textContent = point.label;
+            btn.addEventListener('click', () => {
+                selectedFraction = point.fraction;
+                Array.from(timeline.children).forEach((b) => b.classList.remove('active'));
+                btn.classList.add('active');
+                render();
+            });
+            if (index === 3) {
+                btn.classList.add('active'); // default to 50%
+            }
+            timeline.appendChild(btn);
+        });
+
+        document.getElementById('theme').addEventListener('change', render);
+        document.getElementById('showMarkNumbers').addEventListener('change', render);
+        document.getElementById('showDaysBadge').addEventListener('change', render);
+        document.getElementById('enableAnimation').addEventListener('change', render);
+
+        render();
+    </script>
+</body>
+</html>

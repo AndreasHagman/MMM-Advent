@@ -52,7 +52,7 @@ Module.register("MMM-Advent", {
         return Math.max(0, Math.ceil((end.getTime() - now.getTime()) / msPerDay));
     },
 
-    renderTickMarks(height, candleStart, candleEnd, color) {
+    renderTickMarks(height, candleStart, candleEnd, color, topInset) {
         if (!this.config.marks || this.config.marks < 1) {
             return "";
         }
@@ -60,6 +60,11 @@ Module.register("MMM-Advent", {
         let markup = "";
         for (let i = 0; i < this.config.marks; i++) {
             const y = candleStart + (i / denom) * (height - (candleStart + candleEnd));
+            if (typeof topInset === "number" && y < topInset) {
+                // This mark's wax has already burned away; skip it so it
+                // doesn't float in mid-air above the candle.
+                continue;
+            }
             markup += `<line x1="20" y1="${y}" x2="80" y2="${y}" stroke="${color}" stroke-width="1" opacity="0.35"/>`;
             if (this.config.showMarkNumbers) {
                 markup += `<text x="45" y="${y - 4}" font-size="10" text-anchor="middle" class="mark-label">${i + 1}</text>`;
@@ -74,9 +79,9 @@ Module.register("MMM-Advent", {
         const candleStart = 62;
         const candleEnd = 12;
         const flameSpace = 35;
-        const topInset = candleTopSpace + Math.round(offset * (height - candleTopSpace));
+        const topInset = candleTopSpace + Math.round(offset * (height - candleTopSpace - candleEnd));
 
-        const marks = this.renderTickMarks(height, candleStart, candleEnd, "#000000");
+        const marks = this.renderTickMarks(height, candleStart, candleEnd, "#000000", topInset);
 
         const flame = showFlame
             ? `<g style="transform: translateY(${topInset - flameSpace}px)">
@@ -111,9 +116,9 @@ Module.register("MMM-Advent", {
         const candleStart = 70;
         const candleEnd = 15;
         const flameSpace = 40;
-        const topInset = candleTopSpace + Math.round(offset * (height - candleTopSpace));
+        const topInset = candleTopSpace + Math.round(offset * (height - candleTopSpace - candleEnd));
 
-        const marks = this.renderTickMarks(height, candleStart, candleEnd, "#d4af37");
+        const marks = this.renderTickMarks(height, candleStart, candleEnd, "#d4af37", topInset);
 
         const flame = showFlame
             ? `<g style="transform: translateY(${topInset - flameSpace}px)">
