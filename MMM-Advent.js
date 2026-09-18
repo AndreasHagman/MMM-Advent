@@ -1,5 +1,3 @@
-/* global Module */
-
 /* Magic Mirror
  * Module: Advent
  *
@@ -130,9 +128,9 @@ Module.register("MMM-Advent", {
                 "white flame"
             ];
 
-            for (var i = 0; i < components.length; i++) {
+            for (i = 0; i < components.length; i++) {
                 var element = document.createElement("div");
-                element.className = components[i]; 
+                element.className = components[i];
                 flameContainer.appendChild(element);
             }
 
@@ -146,6 +144,7 @@ Module.register("MMM-Advent", {
     getDom: function() {
         var startConfig = this.config.start;
         var endConfig = this.config.end;
+        var start, end;
 
         if (Array.isArray(startConfig) && Array.isArray(endConfig))
         {
@@ -156,8 +155,8 @@ Module.register("MMM-Advent", {
             {
                 var td = document.createElement("td");
 
-                var start = new Date(startConfig[i]);
-                var end = new Date(endConfig[i]);
+                start = new Date(startConfig[i]);
+                end = new Date(endConfig[i]);
 
                 td.appendChild(this.getCandleDom(start, end));
                 tr.appendChild(td);
@@ -168,8 +167,8 @@ Module.register("MMM-Advent", {
         }
         else
         {
-            var start = new Date(startConfig);
-            var end = new Date(endConfig);
+            start = new Date(startConfig);
+            end = new Date(endConfig);
 
             return this.getCandleDom(start, end);
         }
